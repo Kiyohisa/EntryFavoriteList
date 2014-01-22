@@ -1,6 +1,27 @@
 function Controller() {
     function addLocate() {
-        alert("addLocate!");
+        Ti.Media.showCamera({
+            success: function() {
+                event.cropRect;
+                event.media;
+                event.mediaType == Ti.Media.MEDIA_TYPE_PHOTO ? Ti.UI.createImageView({
+                    width: win.width,
+                    height: win.height,
+                    image: event.media
+                }) : alert("got the wrong type back =" + event.mediaType);
+            },
+            cancel: function() {},
+            error: function() {
+                var a = Titanium.UI.createAlertDialog({
+                    title: "Camera"
+                });
+                error.code == Titanium.Media.NO_CAMERA ? a.setMessage("Please run this test on device") : a.setMessage("Unexpected error: " + error.code);
+                a.show();
+            },
+            saveToPhotoGallery: true,
+            allowEditing: true,
+            mediaTypes: [ Ti.Media.MEDIA_TYPE_VIDEO, Ti.Media.MEDIA_TYPE_PHOTO ]
+        });
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "home";
