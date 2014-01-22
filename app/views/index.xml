@@ -1,0 +1,10 @@
+<Alloy>
+	<TabGroup onOpen="tabOpen" onFocus="tabFocus">
+		<Tab title="Home" id="homeTab" icon="dark_book.png">
+			<Require type="view" src="home"></Require>
+		</Tab>
+		<Tab title="showMap" id="showMapTab" icon="dark_flag.png">
+			<Require type="view" src="showMap"></Require>
+		</Tab>		 
+	</TabGroup>
+</Alloy>

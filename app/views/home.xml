@@ -1,0 +1,8 @@
+<Alloy>
+	<Window title="Home">
+		<RightNavButton platform="ios">
+			<Button title="Add" onClick="addLocate" id="addButton"></Button>
+		</RightNavButton>
+		<TableView id="favorites"></TableView>
+	</Window>
+</Alloy>
