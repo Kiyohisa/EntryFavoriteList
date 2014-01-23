@@ -1,3 +1,25 @@
-"#addButton[platform=ios]": {
-	systemButton: Ti.UI.iPhone.SystemButton.CAMERA
+"#rowWrap": {
+  width: Ti.UI.FILL,
+  height: Ti.UI.SIZE,
+  top: "6dp",
+  right: "11dp",
+  bottom: "6dp",
+  left: "11dp",
+  layout: "horizontal"
+}
+".rowText": {
+  width: Ti.UI.FILL,
+  height: Ti.UI.SIZE,
+  textAlign: "left"
+}
+"#task": {
+  font: {
+    fontSize: "18sp",
+    fontWeight: "bold"
+  }
+}
+"#path": {
+  font: {
+    fontSize: "14sp"
+  }
 }

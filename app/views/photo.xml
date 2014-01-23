@@ -1,0 +1,4 @@
+<Alloy>
+  <ImageView image="{path}" width="100%">
+  </ImageView>
+</Alloy>

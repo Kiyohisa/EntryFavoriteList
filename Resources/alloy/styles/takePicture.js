@@ -1,0 +1,1 @@
+module.exports = [{"isId":true,"priority":100101.0012,"key":"takeButton","style":{systemButton:Ti.UI.iPhone.SystemButton.CAMERA,}}];

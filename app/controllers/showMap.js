@@ -14,14 +14,14 @@ Titanium.Geolocation.getCurrentPosition(
         longitude = e.coords.longitude;
 
         // ピンを立てる
-        // var currentPos = Titanium.Map.createAnnotation({
-            // latitude:latitude,
-            // longitude:longitude,
-            // title:"現在地",
-            // pincolor:Titanium.Map.ANNOTATION_GREEN,
-            // animate:true
-        // });        
-        //$.mapview.addAnnotation(currentPos);
+         var currentPos = Titanium.Map.createAnnotation({
+             latitude:latitude,
+             longitude:longitude,
+             title:"現在地",
+             pincolor:Titanium.Map.ANNOTATION_GREEN,
+             animate:true
+         });        
+        $.mapview.addAnnotation(currentPos);
         
         //$.mapview.show(); // 隠していた地図を表示する
         $.mapview.setLocation({   // 現在地まで地図をスクロールする

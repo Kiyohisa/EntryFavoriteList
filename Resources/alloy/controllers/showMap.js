@@ -15,20 +15,9 @@ function Controller() {
         title: "現在地"
     });
     $.__views.map && $.addTopLevelView($.__views.map);
-    var __alloyId5 = [];
-    $.__views.currentPosition = Ti.Map.createAnnotation({
-        latitude: 0/0,
-        longitude: 0/0,
-        id: "currentPosition",
-        title: "現在地",
-        pincolor: Titanium.Map.ANNOTATION_GREEN,
-        leftButton: "/images/appcelerator_small.png",
-        myid: "1",
-        animate: "true"
-    });
-    __alloyId5.push($.__views.currentPosition);
+    var __alloyId14 = [];
     $.__views.mapview = Ti.Map.createView({
-        annotations: __alloyId5,
+        annotations: __alloyId14,
         id: "mapview",
         ns: Ti.Map,
         userLocation: "true",
@@ -49,6 +38,14 @@ function Controller() {
         }
         latitude = e.coords.latitude;
         longitude = e.coords.longitude;
+        var currentPos = Titanium.Map.createAnnotation({
+            latitude: latitude,
+            longitude: longitude,
+            title: "現在地",
+            pincolor: Titanium.Map.ANNOTATION_GREEN,
+            animate: true
+        });
+        $.mapview.addAnnotation(currentPos);
         $.mapview.setLocation({
             latitude: latitude,
             longitude: longitude,

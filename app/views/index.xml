@@ -3,6 +3,9 @@
 		<Tab title="Home" id="homeTab" icon="dark_book.png">
 			<Require type="view" src="home"></Require>
 		</Tab>
+		<Tab title="takePicture" id="showTakePict" icon="dark_camera.png">
+			<Require type="view" src="takePicture"></Require>
+		</Tab>		
 		<Tab title="showMap" id="showMapTab" icon="dark_flag.png">
 			<Require type="view" src="showMap"></Require>
 		</Tab>		 

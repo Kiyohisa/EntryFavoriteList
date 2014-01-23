@@ -1,8 +1,13 @@
 <Alloy>
 	<Window title="Home">
-		<RightNavButton platform="ios">
-			<Button title="Add" onClick="addLocate" id="addButton"></Button>
-		</RightNavButton>
-		<TableView id="favorites"></TableView>
+		<TableView id="favorites" dataCollection="photo">
+			<TableViewRow _id="{alloy_id}">
+	        <View id="rowWrap">
+	          <Label class="rowText" id="latitude" text="{latitude}" />
+	          <Label class="rowText" id="longitude" text="{longitude}" />	        	
+<!--	          <Label class="rowText" id="path" text="{path}" /> -->
+	        </View>
+		    </TableViewRow>
+		</TableView>
 	</Window>
 </Alloy>

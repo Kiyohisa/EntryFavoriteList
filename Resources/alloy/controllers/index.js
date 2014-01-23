@@ -16,11 +16,11 @@ function Controller() {
     $.__views.index = Ti.UI.createTabGroup({
         id: "index"
     });
-    $.__views.__alloyId2 = Alloy.createController("home", {
-        id: "__alloyId2"
+    $.__views.__alloyId9 = Alloy.createController("home", {
+        id: "__alloyId9"
     });
     $.__views.homeTab = Ti.UI.createTab({
-        window: $.__views.__alloyId2.getViewEx({
+        window: $.__views.__alloyId9.getViewEx({
             recurse: true
         }),
         title: "Home",
@@ -28,11 +28,23 @@ function Controller() {
         icon: "dark_book.png"
     });
     $.__views.index.addTab($.__views.homeTab);
-    $.__views.__alloyId4 = Alloy.createController("showMap", {
-        id: "__alloyId4"
+    $.__views.__alloyId11 = Alloy.createController("takePicture", {
+        id: "__alloyId11"
+    });
+    $.__views.showTakePict = Ti.UI.createTab({
+        window: $.__views.__alloyId11.getViewEx({
+            recurse: true
+        }),
+        title: "takePicture",
+        id: "showTakePict",
+        icon: "dark_camera.png"
+    });
+    $.__views.index.addTab($.__views.showTakePict);
+    $.__views.__alloyId13 = Alloy.createController("showMap", {
+        id: "__alloyId13"
     });
     $.__views.showMapTab = Ti.UI.createTab({
-        window: $.__views.__alloyId4.getViewEx({
+        window: $.__views.__alloyId13.getViewEx({
             recurse: true
         }),
         title: "showMap",
