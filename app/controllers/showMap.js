@@ -13,16 +13,28 @@ Titanium.Geolocation.getCurrentPosition(
         latitude = e.coords.latitude;
         longitude = e.coords.longitude;
 
+		var locations = Alloy.createCollection('photo');
+		Ti.API.info("/////// fetch() ////////");
+		locations.map(function(location){
+			var createAnnotation = Ti.Map.createAnnotation({
+				latitude:location.get('latitude')
+				,longitude:location.get('longitude')
+				,pincolor:Titanium.Map.ANNOTATION_GREEN
+				,animate:true
+			});
+        	$.mapview.addAnnotation(currentPos);			
+		}
+		);
         // ピンを立てる
-         var currentPos = Titanium.Map.createAnnotation({
-             latitude:latitude,
-             longitude:longitude,
-             title:"現在地",
-             pincolor:Titanium.Map.ANNOTATION_GREEN,
-             animate:true
-         });        
-        $.mapview.addAnnotation(currentPos);
-        
+         // var currentPos = Titanium.Map.createAnnotation({
+             // latitude:latitude,
+             // longitude:longitude,
+             // title:"現在地",
+             // pincolor:Titanium.Map.ANNOTATION_GREEN,
+             // animate:true
+         // });        
+        // $.mapview.addAnnotation(currentPos);
+//         
         //$.mapview.show(); // 隠していた地図を表示する
         $.mapview.setLocation({   // 現在地まで地図をスクロールする
             latitude:latitude,

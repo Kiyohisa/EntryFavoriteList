@@ -38,14 +38,17 @@ function Controller() {
         }
         latitude = e.coords.latitude;
         longitude = e.coords.longitude;
-        var currentPos = Titanium.Map.createAnnotation({
-            latitude: latitude,
-            longitude: longitude,
-            title: "現在地",
-            pincolor: Titanium.Map.ANNOTATION_GREEN,
-            animate: true
+        var locations = Alloy.createCollection("photo");
+        Ti.API.info("/////// fetch() ////////");
+        locations.map(function(location) {
+            Ti.Map.createAnnotation({
+                latitude: location.get("latitude"),
+                longitude: location.get("longitude"),
+                pincolor: Titanium.Map.ANNOTATION_GREEN,
+                animate: true
+            });
+            $.mapview.addAnnotation(currentPos);
         });
-        $.mapview.addAnnotation(currentPos);
         $.mapview.setLocation({
             latitude: latitude,
             longitude: longitude,
