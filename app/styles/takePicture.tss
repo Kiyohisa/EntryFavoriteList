@@ -1,3 +1,7 @@
 "#takeButton[platform=ios]": {
 	systemButton: Ti.UI.iPhone.SystemButton.CAMERA
 }
+
+"takePicture":{
+	backgroundColor:'#FFFFFF'
+}

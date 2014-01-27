@@ -2,6 +2,7 @@ function report(evt) {
 	Ti.API.info("Annotation " + evt.title + " clicked, id: " +evt.annotation.myid);
 }
 
+function showMap(){
 Titanium.Geolocation.purpose = 'サンプル';
 Titanium.Geolocation.getCurrentPosition(
     function(e) {
@@ -13,16 +14,21 @@ Titanium.Geolocation.getCurrentPosition(
         latitude = e.coords.latitude;
         longitude = e.coords.longitude;
 
-		var locations = Alloy.createCollection('photo');
+		var photos = Alloy.createCollection('photo');
+		// alert(locations);
 		Ti.API.info("/////// fetch() ////////");
-		locations.map(function(location){
+		photos.fetch();
+		var data = [];
+		photos.map(function(photo){
 			var createAnnotation = Ti.Map.createAnnotation({
-				latitude:location.get('latitude')
-				,longitude:location.get('longitude')
+				latitude:photo.get('latitude')
+				,longitude:photo.get('longitude')
 				,pincolor:Titanium.Map.ANNOTATION_GREEN
 				,animate:true
 			});
-        	$.mapview.addAnnotation(currentPos);			
+			alert(createAnnotation);
+			data.push(createAnnotation);
+        	// $.mapview.addAnnotations([createAnnotation]);			
 		}
 		);
         // ピンを立てる
@@ -33,7 +39,7 @@ Titanium.Geolocation.getCurrentPosition(
              // pincolor:Titanium.Map.ANNOTATION_GREEN,
              // animate:true
          // });        
-        // $.mapview.addAnnotation(currentPos);
+        $.mapview.addAnnotations(data);
 //         
         //$.mapview.show(); // 隠していた地図を表示する
         $.mapview.setLocation({   // 現在地まで地図をスクロールする
@@ -44,5 +50,5 @@ Titanium.Geolocation.getCurrentPosition(
         });
     }
 );
-
+};
 $.map.open();

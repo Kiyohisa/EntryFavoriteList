@@ -1,5 +1,5 @@
 <Alloy>
-	<Window id="map" title="現在地">
+	<Window id="map" title="現在地" onOpen="showMap">
 		<View id="mapview" ns="Ti.Map" onClick="report" userLocation="true" 
 			mapType="Titanium.Map.STANDARD_TYPE"
 			region="{latitude:40.0, longitude:130, latitudeDelta:30, longitudeDelta:30}"

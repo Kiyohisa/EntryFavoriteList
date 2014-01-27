@@ -2,6 +2,38 @@ function Controller() {
     function report(evt) {
         Ti.API.info("Annotation " + evt.title + " clicked, id: " + evt.annotation.myid);
     }
+    function showMap() {
+        Titanium.Geolocation.purpose = "サンプル";
+        Titanium.Geolocation.getCurrentPosition(function(e) {
+            if (!e.success || e.error) {
+                alert("位置情報が取得できませんでした");
+                return;
+            }
+            latitude = e.coords.latitude;
+            longitude = e.coords.longitude;
+            var photos = Alloy.createCollection("photo");
+            Ti.API.info("/////// fetch() ////////");
+            photos.fetch();
+            var data = [];
+            photos.map(function(photo) {
+                var createAnnotation = Ti.Map.createAnnotation({
+                    latitude: photo.get("latitude"),
+                    longitude: photo.get("longitude"),
+                    pincolor: Titanium.Map.ANNOTATION_GREEN,
+                    animate: true
+                });
+                alert(createAnnotation);
+                data.push(createAnnotation);
+            });
+            $.mapview.addAnnotations(data);
+            $.mapview.setLocation({
+                latitude: latitude,
+                longitude: longitude,
+                latitudeDelta: .01,
+                longitudeDelta: .01
+            });
+        });
+    }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "showMap";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
@@ -15,6 +47,7 @@ function Controller() {
         title: "現在地"
     });
     $.__views.map && $.addTopLevelView($.__views.map);
+    showMap ? $.__views.map.addEventListener("open", showMap) : __defers["$.__views.map!open!showMap"] = true;
     var __alloyId14 = [];
     $.__views.mapview = Ti.Map.createView({
         annotations: __alloyId14,
@@ -30,33 +63,8 @@ function Controller() {
     report ? $.__views.mapview.addEventListener("click", report) : __defers["$.__views.mapview!click!report"] = true;
     exports.destroy = function() {};
     _.extend($, $.__views);
-    Titanium.Geolocation.purpose = "サンプル";
-    Titanium.Geolocation.getCurrentPosition(function(e) {
-        if (!e.success || e.error) {
-            alert("位置情報が取得できませんでした");
-            return;
-        }
-        latitude = e.coords.latitude;
-        longitude = e.coords.longitude;
-        var locations = Alloy.createCollection("photo");
-        Ti.API.info("/////// fetch() ////////");
-        locations.map(function(location) {
-            Ti.Map.createAnnotation({
-                latitude: location.get("latitude"),
-                longitude: location.get("longitude"),
-                pincolor: Titanium.Map.ANNOTATION_GREEN,
-                animate: true
-            });
-            $.mapview.addAnnotation(currentPos);
-        });
-        $.mapview.setLocation({
-            latitude: latitude,
-            longitude: longitude,
-            latitudeDelta: .01,
-            longitudeDelta: .01
-        });
-    });
     $.map.open();
+    __defers["$.__views.map!open!showMap"] && $.__views.map.addEventListener("open", showMap);
     __defers["$.__views.mapview!click!report"] && $.__views.mapview.addEventListener("click", report);
     _.extend($, exports);
 }
