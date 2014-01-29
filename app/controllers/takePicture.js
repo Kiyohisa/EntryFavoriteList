@@ -25,6 +25,7 @@ function takePicture(){
 	 					photo.save();
 	 					Alloy.Collections.photo.fetch();
                 		
+                		Ti.App.fireEvent('app:update', photo);
                 	}
                 	);
 

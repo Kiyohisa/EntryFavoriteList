@@ -37,6 +37,7 @@ function Controller() {
                         var photo = Alloy.createModel("photo", savePhoto);
                         photo.save();
                         Alloy.Collections.photo.fetch();
+                        Ti.App.fireEvent("app:update", photo);
                     });
                 } else alert("got the wrong type back =" + evt.mediaType);
             },

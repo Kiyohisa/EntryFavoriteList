@@ -15,17 +15,26 @@ function Controller() {
             Ti.API.info("/////// fetch() ////////");
             photos.fetch();
             var data = [];
-            photos.map(function(photo) {
-                var createAnnotation = Ti.Map.createAnnotation({
-                    latitude: photo.get("latitude"),
-                    longitude: photo.get("longitude"),
-                    pincolor: Titanium.Map.ANNOTATION_GREEN,
-                    animate: true
+            var _insertAnnotation = function(photo) {
+                alert("photo" + photo);
+                photos.map(function(photo) {
+                    var createAnnotation = Ti.Map.createAnnotation({
+                        latitude: photo.get("latitude"),
+                        longitude: photo.get("longitude"),
+                        pincolor: Titanium.Map.ANNOTATION_GREEN,
+                        animate: true
+                    });
+                    data.push(createAnnotation);
                 });
-                alert(createAnnotation);
-                data.push(createAnnotation);
+                $.mapview.addAnnotations(data);
+            };
+            photos.map(_insertAnnotation);
+            Ti.App.addEventListener("app:update", function() {
+                var photos = Alloy.createCollection("photo");
+                Ti.API.info("/////// fetch() ////////");
+                photos.fetch();
+                _insertAnnotation;
             });
-            $.mapview.addAnnotations(data);
             $.mapview.setLocation({
                 latitude: latitude,
                 longitude: longitude,

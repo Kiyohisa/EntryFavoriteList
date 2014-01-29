@@ -3,7 +3,8 @@ exports.definition = {
 		columns: {
 		    "path": "string",
 		    "latitude": "string",
-		    "longitude": "string"
+		    "longitude": "string",
+		    "name": "string"
 		},
 		adapter: {
 			type: "sql",
