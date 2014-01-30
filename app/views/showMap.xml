@@ -4,14 +4,6 @@
 			mapType="Titanium.Map.STANDARD_TYPE"
 			region="{latitude:40.0, longitude:130, latitudeDelta:30, longitudeDelta:30}"
 			animate="true" regionFit="true" userLocation="true">
-<!--			 <Annotation id="currentPosition"
-              latitude="{currentLatitude}" longitude="{currentLongitude}"
-              title="現在地"
-              pincolor="Titanium.Map.ANNOTATION_GREEN"
-              leftButton="/images/appcelerator_small.png"
-              myid="1"
-              animate="true"/>
-             -->
 		</View>
 	</Window>
 </Alloy>

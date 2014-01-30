@@ -1,5 +1,10 @@
 function report(evt) {
 	Ti.API.info("Annotation " + evt.title + " clicked, id: " +evt.annotation.myid);
+	
+	// if (evt.annotation && evt.clicksource == "rightButton") {
+		// var win = app.ui.photo.createPhotoWindow(evt.annotation.photo.path);
+		// win.open();
+	// };
 }
 
 function showMap(){
@@ -27,6 +32,8 @@ function showMap(){
 					,animate:true
 					,title: "test"
 					,leftView: Ti.UI.createImageView({image: photo.get('path'), width:32, height:32})
+					,rightButton: Ti.UI.iPhone.SystemButton.DISCLOSURE
+					//,photo: photo
 				});
 				$.mapview.addAnnotation(createAnnotation);
 			};
@@ -41,6 +48,8 @@ function showMap(){
 					,animate:true
 					,title: "test"
 					,leftView: Ti.UI.createImageView({image: event.photo.attributes.path, width:32, height:32})
+					,rightButton: Ti.UI.iPhone.SystemButton.DISCLOSURE
+					//,photo: photo					
 				});
 				$.mapview.addAnnotation(createAnnotation);
 	        });
@@ -51,6 +60,7 @@ function showMap(){
 	            latitudeDelta:0.01,
 	            longitudeDelta:0.01
 	        });
+	       
 	    }
 	);
 };

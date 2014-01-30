@@ -5,7 +5,6 @@ function Controller() {
     function takePicture() {
         var takePict;
         takePict = Alloy.createController("takePicture").getView();
-        $.entry.add(takePict);
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "entry";

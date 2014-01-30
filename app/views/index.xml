@@ -7,8 +7,8 @@
 			<Require type="view" src="showMap"></Require>
 		</Tab>		 
 		<Tab title="takePicture" id="showTakePict" icon="dark_camera.png">
-<!--			<Require type="view" src="takePicture"></Require> -->
-			<Require type="view" src="entry"></Require>
+			<Require type="view" src="takePicture"></Require> 
+<!--			<Require type="view" src="entry"></Require> -->
 		</Tab>		
 	</TabGroup>
 </Alloy>

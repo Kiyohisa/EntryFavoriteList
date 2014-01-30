@@ -25,7 +25,8 @@ function Controller() {
                         image: photo.get("path"),
                         width: 32,
                         height: 32
-                    })
+                    }),
+                    rightButton: Ti.UI.iPhone.SystemButton.DISCLOSURE
                 });
                 $.mapview.addAnnotation(createAnnotation);
             };
@@ -41,7 +42,8 @@ function Controller() {
                         image: event.photo.attributes.path,
                         width: 32,
                         height: 32
-                    })
+                    }),
+                    rightButton: Ti.UI.iPhone.SystemButton.DISCLOSURE
                 });
                 $.mapview.addAnnotation(createAnnotation);
             });
@@ -67,9 +69,9 @@ function Controller() {
     });
     $.__views.map && $.addTopLevelView($.__views.map);
     showMap ? $.__views.map.addEventListener("open", showMap) : __defers["$.__views.map!open!showMap"] = true;
-    var __alloyId16 = [];
+    var __alloyId17 = [];
     $.__views.mapview = Ti.Map.createView({
-        annotations: __alloyId16,
+        annotations: __alloyId17,
         id: "mapview",
         ns: Ti.Map,
         userLocation: "true",

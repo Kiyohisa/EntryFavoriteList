@@ -1,18 +1,18 @@
 function Controller() {
-    function __alloyId24() {
-        __alloyId24.opts || {};
-        var models = __alloyId23.models;
+    function __alloyId25() {
+        __alloyId25.opts || {};
+        var models = __alloyId24.models;
         var len = models.length;
         var children = $.__views.scroll.children;
         for (var d = children.length - 1; d >= 0; d--) $.__views.scroll.remove(children[d]);
         for (var i = 0; len > i; i++) {
-            var __alloyId20 = models[i];
-            __alloyId20.__transform = {};
-            var __alloyId22 = Alloy.createController("photo", {
-                $model: __alloyId20,
+            var __alloyId21 = models[i];
+            __alloyId21.__transform = {};
+            var __alloyId23 = Alloy.createController("photo", {
+                $model: __alloyId21,
                 __parentSymbol: $.__views.scroll
             });
-            __alloyId22.setParent($.__views.scroll);
+            __alloyId23.setParent($.__views.scroll);
         }
     }
     function tabClose() {
@@ -85,10 +85,10 @@ function Controller() {
         id: "scroll"
     });
     $.__views.takePicture.add($.__views.scroll);
-    var __alloyId23 = Alloy.Collections["photo"] || photo;
-    __alloyId23.on("fetch destroy change add remove reset", __alloyId24);
+    var __alloyId24 = Alloy.Collections["photo"] || photo;
+    __alloyId24.on("fetch destroy change add remove reset", __alloyId25);
     exports.destroy = function() {
-        __alloyId23.off("fetch destroy change add remove reset", __alloyId24);
+        __alloyId24.off("fetch destroy change add remove reset", __alloyId25);
     };
     _.extend($, $.__views);
     $.takePicture.open();

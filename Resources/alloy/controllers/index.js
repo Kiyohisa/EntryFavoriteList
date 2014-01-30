@@ -40,7 +40,7 @@ function Controller() {
         icon: "dark_flag.png"
     });
     $.__views.index.addTab($.__views.showMapTab);
-    $.__views.__alloyId15 = Alloy.createController("entry", {
+    $.__views.__alloyId15 = Alloy.createController("takePicture", {
         id: "__alloyId15"
     });
     $.__views.showTakePict = Ti.UI.createTab({
