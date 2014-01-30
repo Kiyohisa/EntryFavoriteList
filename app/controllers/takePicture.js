@@ -3,8 +3,8 @@ function tabClose(){
 }
 
 function takePicture(){
-	Ti.Media.openPhotoGallery({
-	//Ti.Media.showCamera({
+	//Ti.Media.openPhotoGallery({
+	Ti.Media.showCamera({
 		success:function(evt){
                 var cropRect = evt.cropRect;
                 var image = evt.media;
