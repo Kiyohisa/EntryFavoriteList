@@ -1,10 +1,10 @@
 exports.definition = {
 	config: {
 		columns: {
-		    "path": "string",
-		    "latitude": "string",
-		    "longitude": "string",
-		    "name": "string"
+		    "path": "text",
+		    "latitude": "text",
+		    "longitude": "text",
+		    "name": "text"
 		},
 		adapter: {
 			type: "sql",

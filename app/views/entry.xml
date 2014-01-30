@@ -1,0 +1,13 @@
+<Alloy>
+	<Window id="entry" title="Entry">
+    <ScrollView id="addWrap" layout="vertical" onClick="blurTextArea">
+      <Label>名前</Label>
+      <TextArea id="inputName" class="inputText"/>
+      <Label>住所</Label>
+      <TextArea id="inputAddress" class="inputText"/>
+      <Label>電話番号</Label>
+      <TextArea id="inputTel" class="inputText"/>      
+      <Button id="takePicture" title="撮影する" onClick="takePicture" />
+    </ScrollView>		
+	</Window>
+</Alloy>

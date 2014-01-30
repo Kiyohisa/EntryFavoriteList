@@ -1,17 +1,17 @@
 function Controller() {
-    function __alloyId7() {
-        __alloyId7.opts || {};
-        var models = __alloyId6.models;
+    function __alloyId10() {
+        __alloyId10.opts || {};
+        var models = __alloyId9.models;
         var len = models.length;
         var rows = [];
         for (var i = 0; len > i; i++) {
-            var __alloyId1 = models[i];
-            __alloyId1.__transform = {};
-            var __alloyId2 = Ti.UI.createTableViewRow({
-                _id: "undefined" != typeof __alloyId1.__transform["alloy_id"] ? __alloyId1.__transform["alloy_id"] : __alloyId1.get("alloy_id")
+            var __alloyId4 = models[i];
+            __alloyId4.__transform = {};
+            var __alloyId5 = Ti.UI.createTableViewRow({
+                _id: "undefined" != typeof __alloyId4.__transform["alloy_id"] ? __alloyId4.__transform["alloy_id"] : __alloyId4.get("alloy_id")
             });
-            rows.push(__alloyId2);
-            var __alloyId3 = Ti.UI.createView({
+            rows.push(__alloyId5);
+            var __alloyId6 = Ti.UI.createView({
                 width: Ti.UI.FILL,
                 height: Ti.UI.SIZE,
                 top: "6dp",
@@ -20,21 +20,21 @@ function Controller() {
                 left: "11dp",
                 layout: "horizontal"
             });
-            __alloyId2.add(__alloyId3);
-            var __alloyId4 = Ti.UI.createLabel({
+            __alloyId5.add(__alloyId6);
+            var __alloyId7 = Ti.UI.createLabel({
                 width: Ti.UI.FILL,
                 height: Ti.UI.SIZE,
                 textAlign: "left",
-                text: "undefined" != typeof __alloyId1.__transform["latitude"] ? __alloyId1.__transform["latitude"] : __alloyId1.get("latitude")
+                text: "undefined" != typeof __alloyId4.__transform["latitude"] ? __alloyId4.__transform["latitude"] : __alloyId4.get("latitude")
             });
-            __alloyId3.add(__alloyId4);
-            var __alloyId5 = Ti.UI.createLabel({
+            __alloyId6.add(__alloyId7);
+            var __alloyId8 = Ti.UI.createLabel({
                 width: Ti.UI.FILL,
                 height: Ti.UI.SIZE,
                 textAlign: "left",
-                text: "undefined" != typeof __alloyId1.__transform["longitude"] ? __alloyId1.__transform["longitude"] : __alloyId1.get("longitude")
+                text: "undefined" != typeof __alloyId4.__transform["longitude"] ? __alloyId4.__transform["longitude"] : __alloyId4.get("longitude")
             });
-            __alloyId3.add(__alloyId5);
+            __alloyId6.add(__alloyId8);
         }
         $.__views.favorites.setData(rows);
     }
@@ -54,10 +54,10 @@ function Controller() {
         id: "favorites"
     });
     $.__views.home.add($.__views.favorites);
-    var __alloyId6 = Alloy.Collections["photo"] || photo;
-    __alloyId6.on("fetch destroy change add remove reset", __alloyId7);
+    var __alloyId9 = Alloy.Collections["photo"] || photo;
+    __alloyId9.on("fetch destroy change add remove reset", __alloyId10);
     exports.destroy = function() {
-        __alloyId6.off("fetch destroy change add remove reset", __alloyId7);
+        __alloyId9.off("fetch destroy change add remove reset", __alloyId10);
     };
     _.extend($, $.__views);
     _.extend($, exports);

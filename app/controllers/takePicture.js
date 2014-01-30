@@ -3,7 +3,8 @@ function tabClose(){
 }
 
 function takePicture(){
-	Ti.Media.showCamera({
+	Ti.Media.openPhotoGallery({
+	//Ti.Media.showCamera({
 		success:function(evt){
                 var cropRect = evt.cropRect;
                 var image = evt.media;
@@ -25,7 +26,11 @@ function takePicture(){
 	 					photo.save();
 	 					Alloy.Collections.photo.fetch();
                 		
-                		Ti.App.fireEvent('app:update', photo);
+                		Ti.API.info({photo: photo});
+                		
+                		// Ti.App.fireEvent('app:update', {photo: photo});
+                		Ti.App.fireEvent('app:update', {photo: photo});
+                		
                 	}
                 	);
 

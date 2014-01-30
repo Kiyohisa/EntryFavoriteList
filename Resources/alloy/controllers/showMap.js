@@ -11,29 +11,39 @@ function Controller() {
             }
             latitude = e.coords.latitude;
             longitude = e.coords.longitude;
-            var photos = Alloy.createCollection("photo");
+            var photos = Alloy.Collections.photo;
             Ti.API.info("/////// fetch() ////////");
             photos.fetch();
-            var data = [];
             var _insertAnnotation = function(photo) {
-                alert("photo" + photo);
-                photos.map(function(photo) {
-                    var createAnnotation = Ti.Map.createAnnotation({
-                        latitude: photo.get("latitude"),
-                        longitude: photo.get("longitude"),
-                        pincolor: Titanium.Map.ANNOTATION_GREEN,
-                        animate: true
-                    });
-                    data.push(createAnnotation);
+                var createAnnotation = Ti.Map.createAnnotation({
+                    latitude: photo.get("latitude"),
+                    longitude: photo.get("longitude"),
+                    pincolor: Titanium.Map.ANNOTATION_GREEN,
+                    animate: true,
+                    title: "test",
+                    leftView: Ti.UI.createImageView({
+                        image: photo.get("path"),
+                        width: 32,
+                        height: 32
+                    })
                 });
-                $.mapview.addAnnotations(data);
+                $.mapview.addAnnotation(createAnnotation);
             };
             photos.map(_insertAnnotation);
-            Ti.App.addEventListener("app:update", function() {
-                var photos = Alloy.createCollection("photo");
-                Ti.API.info("/////// fetch() ////////");
-                photos.fetch();
-                _insertAnnotation;
+            Ti.App.addEventListener("app:update", function(event) {
+                var createAnnotation = Ti.Map.createAnnotation({
+                    latitude: event.photo.attributes.latitude,
+                    longitude: event.photo.attributes.longitude,
+                    pincolor: Titanium.Map.ANNOTATION_GREEN,
+                    animate: true,
+                    title: "test",
+                    leftView: Ti.UI.createImageView({
+                        image: event.photo.attributes.path,
+                        width: 32,
+                        height: 32
+                    })
+                });
+                $.mapview.addAnnotation(createAnnotation);
             });
             $.mapview.setLocation({
                 latitude: latitude,
@@ -57,9 +67,9 @@ function Controller() {
     });
     $.__views.map && $.addTopLevelView($.__views.map);
     showMap ? $.__views.map.addEventListener("open", showMap) : __defers["$.__views.map!open!showMap"] = true;
-    var __alloyId14 = [];
+    var __alloyId16 = [];
     $.__views.mapview = Ti.Map.createView({
-        annotations: __alloyId14,
+        annotations: __alloyId16,
         id: "mapview",
         ns: Ti.Map,
         userLocation: "true",

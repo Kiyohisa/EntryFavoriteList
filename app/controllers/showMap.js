@@ -14,51 +14,35 @@ function showMap(){
 	        latitude = e.coords.latitude;
 	        longitude = e.coords.longitude;
 
-			var photos = Alloy.createCollection('photo');
+			var photos = Alloy.Collections.photo;
 			// alert(locations);
 			Ti.API.info("/////// fetch() ////////");
-			photos.fetch();
-			var data = [];
-			
+			photos.fetch();			
 			// アノテーションを配置
 			var _insertAnnotation = function(photo){
-				alert('photo'+photo);
-				photos.map(function(photo){
-					var createAnnotation = Ti.Map.createAnnotation({
-						latitude:photo.get('latitude')
-						,longitude:photo.get('longitude')
-						,pincolor:Titanium.Map.ANNOTATION_GREEN
-						,animate:true
-					});
-					// alert(createAnnotation);
-					data.push(createAnnotation);
-				}
-				);
-		        $.mapview.addAnnotations(data);
+				var createAnnotation = Ti.Map.createAnnotation({
+					latitude:photo.get('latitude')
+					,longitude:photo.get('longitude')
+					,pincolor:Titanium.Map.ANNOTATION_GREEN
+					,animate:true
+					,title: "test"
+					,leftView: Ti.UI.createImageView({image: photo.get('path'), width:32, height:32})
+				});
+				$.mapview.addAnnotation(createAnnotation);
 			};
 			
 			photos.map(_insertAnnotation);
-			// photos.map(function(photo){
-				// var createAnnotation = Ti.Map.createAnnotation({
-					// latitude:photo.get('latitude')
-					// ,longitude:photo.get('longitude')
-					// ,pincolor:Titanium.Map.ANNOTATION_GREEN
-					// ,animate:true
-				// });
-				// // alert(createAnnotation);
-				// data.push(createAnnotation);
-			// }
-			// );
-	        // $.mapview.addAnnotations(data);
 	        
 	        Ti.App.addEventListener('app:update',function(event){
-				//alert('app:update'+event.photo);
-				var photos = Alloy.createCollection('photo');
-				// alert(locations);
-				Ti.API.info("/////// fetch() ////////");
-				photos.fetch();
-				
-	        	_insertAnnotation;
+				var createAnnotation = Ti.Map.createAnnotation({
+					latitude:event.photo.attributes.latitude
+					,longitude:event.photo.attributes.longitude
+					,pincolor:Titanium.Map.ANNOTATION_GREEN
+					,animate:true
+					,title: "test"
+					,leftView: Ti.UI.createImageView({image: event.photo.attributes.path, width:32, height:32})
+				});
+				$.mapview.addAnnotation(createAnnotation);
 	        });
 	        
 	        $.mapview.setLocation({   // 現在地まで地図をスクロールする
@@ -70,4 +54,4 @@ function showMap(){
 	    }
 	);
 };
-$.map.open();
+$.map.open();	

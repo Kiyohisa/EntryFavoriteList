@@ -1,25 +1,25 @@
 function Controller() {
-    function __alloyId22() {
-        __alloyId22.opts || {};
-        var models = __alloyId21.models;
+    function __alloyId24() {
+        __alloyId24.opts || {};
+        var models = __alloyId23.models;
         var len = models.length;
         var children = $.__views.scroll.children;
         for (var d = children.length - 1; d >= 0; d--) $.__views.scroll.remove(children[d]);
         for (var i = 0; len > i; i++) {
-            var __alloyId18 = models[i];
-            __alloyId18.__transform = {};
-            var __alloyId20 = Alloy.createController("photo", {
-                $model: __alloyId18,
+            var __alloyId20 = models[i];
+            __alloyId20.__transform = {};
+            var __alloyId22 = Alloy.createController("photo", {
+                $model: __alloyId20,
                 __parentSymbol: $.__views.scroll
             });
-            __alloyId20.setParent($.__views.scroll);
+            __alloyId22.setParent($.__views.scroll);
         }
     }
     function tabClose() {
         $.destroy();
     }
     function takePicture() {
-        Ti.Media.showCamera({
+        Ti.Media.openPhotoGallery({
             success: function(evt) {
                 evt.cropRect;
                 evt.media;
@@ -37,7 +37,12 @@ function Controller() {
                         var photo = Alloy.createModel("photo", savePhoto);
                         photo.save();
                         Alloy.Collections.photo.fetch();
-                        Ti.App.fireEvent("app:update", photo);
+                        Ti.API.info({
+                            photo: photo
+                        });
+                        Ti.App.fireEvent("app:update", {
+                            photo: photo
+                        });
                     });
                 } else alert("got the wrong type back =" + evt.mediaType);
             },
@@ -80,10 +85,10 @@ function Controller() {
         id: "scroll"
     });
     $.__views.takePicture.add($.__views.scroll);
-    var __alloyId21 = Alloy.Collections["photo"] || photo;
-    __alloyId21.on("fetch destroy change add remove reset", __alloyId22);
+    var __alloyId23 = Alloy.Collections["photo"] || photo;
+    __alloyId23.on("fetch destroy change add remove reset", __alloyId24);
     exports.destroy = function() {
-        __alloyId21.off("fetch destroy change add remove reset", __alloyId22);
+        __alloyId23.off("fetch destroy change add remove reset", __alloyId24);
     };
     _.extend($, $.__views);
     $.takePicture.open();

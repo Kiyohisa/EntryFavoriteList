@@ -1,1 +1,1 @@
-module.exports = [{"isApi":true,"priority":1000.0013,"key":"takePicture","style":{backgroundColor:"#FFFFFF",}},{"isId":true,"priority":100101.0012,"key":"takeButton","style":{systemButton:Ti.UI.iPhone.SystemButton.CAMERA,}}];
+module.exports = [{"isApi":true,"priority":1000.002,"key":"takePicture","style":{backgroundColor:"#FFFFFF",}},{"isId":true,"priority":100101.0019,"key":"takeButton","style":{systemButton:Ti.UI.iPhone.SystemButton.CAMERA,}}];
