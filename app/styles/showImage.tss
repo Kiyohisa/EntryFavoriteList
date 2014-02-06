@@ -1,0 +1,14 @@
+
+"#imageView" : {
+  backgroundColor: "#fff" 
+  ,barColor: "#000"
+  ,translucent: true
+  ,navBarHidden: true
+  ,tabBarHidden: true
+}
+"#showPict" : {
+  width: Ti.Platform.displayCaps.platformWidth,
+ height: Ti.Platform.displayCaps.platformHeight,
+}
+
+

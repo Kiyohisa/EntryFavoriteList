@@ -4,7 +4,8 @@ exports.definition = {
             path: "text",
             latitude: "text",
             longitude: "text",
-            name: "text"
+            memo: "text",
+            favorite_id: "Integer"
         },
         adapter: {
             type: "sql",

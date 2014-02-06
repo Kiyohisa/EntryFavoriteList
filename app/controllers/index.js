@@ -6,4 +6,8 @@ function tabFocus(e) {
 	Alloy.Globals.currentTab = e.Tab;
 }
 
-$.index.open();
+$.indexTab.open();
+
+$.indexTab.addEventListener('close', function() {
+    $.destroy();
+});

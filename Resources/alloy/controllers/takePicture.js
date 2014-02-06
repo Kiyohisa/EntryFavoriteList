@@ -1,58 +1,63 @@
 function Controller() {
-    function __alloyId25() {
-        __alloyId25.opts || {};
-        var models = __alloyId24.models;
+    function __alloyId18() {
+        __alloyId18.opts || {};
+        var models = __alloyId17.models;
         var len = models.length;
         var children = $.__views.scroll.children;
         for (var d = children.length - 1; d >= 0; d--) $.__views.scroll.remove(children[d]);
         for (var i = 0; len > i; i++) {
-            var __alloyId21 = models[i];
-            __alloyId21.__transform = {};
-            var __alloyId23 = Alloy.createController("photo", {
-                $model: __alloyId21,
+            var __alloyId14 = models[i];
+            __alloyId14.__transform = {};
+            var __alloyId16 = Alloy.createController("photo", {
+                $model: __alloyId14,
                 __parentSymbol: $.__views.scroll
             });
-            __alloyId23.setParent($.__views.scroll);
+            __alloyId16.setParent($.__views.scroll);
         }
     }
-    function tabClose() {
-        $.destroy();
-    }
     function takePicture() {
-        Ti.Media.openPhotoGallery({
+        Ti.Media.showCamera({
             success: function(evt) {
-                evt.cropRect;
-                evt.media;
                 if (evt.mediaType == Ti.Media.MEDIA_TYPE_PHOTO) {
                     Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
                     Ti.Geolocation.getCurrentPosition(function(e) {
                         var now = new Date().getTime;
                         var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory, String.format("%d-%d", now, Math.floor(1e3 * Math.random())));
                         file.write(evt.media);
+                        var favorites = Alloy.createCollection("favorite");
+                        favorites.fetch();
+                        var favorite = favorites.at(favorites.length - 1);
                         var savePhoto = {
                             path: file.nativePath,
                             latitude: e.coords.latitude,
-                            longitude: e.coords.longitude
+                            longitude: e.coords.longitude,
+                            memo: favorite.get("name")
                         };
                         var photo = Alloy.createModel("photo", savePhoto);
                         photo.save();
-                        Alloy.Collections.photo.fetch();
                         Ti.API.info({
                             photo: photo
                         });
+                        Ti.Media.hideCamera();
                         Ti.App.fireEvent("app:update", {
                             photo: photo
                         });
+                        $.takePicture.close();
                     });
                 } else alert("got the wrong type back =" + evt.mediaType);
             },
-            cancel: function() {},
+            cancel: function() {
+                var win = Ti.UI.createWindow();
+                win.close();
+            },
             error: function(error) {
                 var a = Ti.UI.createAlertDialog({
                     title: "Camera"
                 });
                 error.code == Titanium.Media.NO_CAMERA ? a.setMessage("Please run this test on device") : a.setMessage("Unexpected error: " + error.code);
                 a.show();
+                var win = Ti.UI.createWindow();
+                win.close();
             },
             saveToPhotoGallery: true,
             allowEditing: true,
@@ -70,30 +75,23 @@ function Controller() {
     Alloy.Collections.instance("photo");
     $.__views.takePicture = Ti.UI.createWindow({
         id: "takePicture",
-        title: "Take Picture"
+        title: "Take Picture",
+        tabBarHidden: "true"
     });
     $.__views.takePicture && $.addTopLevelView($.__views.takePicture);
-    tabClose ? $.__views.takePicture.addEventListener("close", tabClose) : __defers["$.__views.takePicture!close!tabClose"] = true;
-    $.__views.takeButton = Ti.UI.createButton({
-        systemButton: Ti.UI.iPhone.SystemButton.CAMERA,
-        title: "takePic",
-        id: "takeButton"
-    });
-    takePicture ? $.__views.takeButton.addEventListener("click", takePicture) : __defers["$.__views.takeButton!click!takePicture"] = true;
-    $.__views.takePicture.rightNavButton = $.__views.takeButton;
+    takePicture ? $.__views.takePicture.addEventListener("open", takePicture) : __defers["$.__views.takePicture!open!takePicture"] = true;
     $.__views.scroll = Ti.UI.createScrollView({
         id: "scroll"
     });
     $.__views.takePicture.add($.__views.scroll);
-    var __alloyId24 = Alloy.Collections["photo"] || photo;
-    __alloyId24.on("fetch destroy change add remove reset", __alloyId25);
+    var __alloyId17 = Alloy.Collections["photo"] || photo;
+    __alloyId17.on("fetch destroy change add remove reset", __alloyId18);
     exports.destroy = function() {
-        __alloyId24.off("fetch destroy change add remove reset", __alloyId25);
+        __alloyId17.off("fetch destroy change add remove reset", __alloyId18);
     };
     _.extend($, $.__views);
     $.takePicture.open();
-    __defers["$.__views.takePicture!close!tabClose"] && $.__views.takePicture.addEventListener("close", tabClose);
-    __defers["$.__views.takeButton!click!takePicture"] && $.__views.takeButton.addEventListener("click", takePicture);
+    __defers["$.__views.takePicture!open!takePicture"] && $.__views.takePicture.addEventListener("open", takePicture);
     _.extend($, exports);
 }
 

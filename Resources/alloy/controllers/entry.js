@@ -3,8 +3,19 @@ function Controller() {
         $.inputName.blur();
     }
     function takePicture() {
-        var takePict;
-        takePict = Alloy.createController("takePicture").getView();
+        var favorite = Alloy.createModel("favorite", {
+            name: $.inputName.value
+        });
+        if (favorite.isValid()) {
+            favorite.save();
+            Alloy.Collections.favorite.fetch();
+            var takePict = Alloy.createController("takePicture").getView("takePicture");
+            if (void 0 === Alloy.Globals.currentTab) {
+                index = Alloy.createController("index");
+                Alloy.Globals.currentTab = index.getView("showTakePict");
+            }
+            Alloy.Globals.currentTab.open(takePict);
+        } else favorite.destroy();
     }
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
     this.__controllerPath = "entry";
@@ -39,7 +50,7 @@ function Controller() {
         bottom: "11dp",
         left: "11dp",
         right: "11dp",
-        text: "名前",
+        text: "memo",
         id: "__alloyId0"
     });
     $.__views.addWrap.add($.__views.__alloyId0);
@@ -58,70 +69,6 @@ function Controller() {
         id: "inputName"
     });
     $.__views.addWrap.add($.__views.inputName);
-    $.__views.__alloyId1 = Ti.UI.createLabel({
-        font: {
-            fontSize: "16sp",
-            fontWeight: "bold"
-        },
-        textAlign: "left",
-        color: "#333333",
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        top: "11dp",
-        bottom: "11dp",
-        left: "11dp",
-        right: "11dp",
-        text: "住所",
-        id: "__alloyId1"
-    });
-    $.__views.addWrap.add($.__views.__alloyId1);
-    $.__views.inputAddress = Ti.UI.createTextArea({
-        font: {
-            fontSize: "16sp"
-        },
-        width: Ti.UI.FILL,
-        height: "96dp",
-        top: "11dp",
-        bottom: "11dp",
-        left: "11dp",
-        right: "11dp",
-        borderWidth: 1,
-        borderColor: "#CCCCCC",
-        id: "inputAddress"
-    });
-    $.__views.addWrap.add($.__views.inputAddress);
-    $.__views.__alloyId2 = Ti.UI.createLabel({
-        font: {
-            fontSize: "16sp",
-            fontWeight: "bold"
-        },
-        textAlign: "left",
-        color: "#333333",
-        width: Ti.UI.SIZE,
-        height: Ti.UI.SIZE,
-        top: "11dp",
-        bottom: "11dp",
-        left: "11dp",
-        right: "11dp",
-        text: "電話番号",
-        id: "__alloyId2"
-    });
-    $.__views.addWrap.add($.__views.__alloyId2);
-    $.__views.inputTel = Ti.UI.createTextArea({
-        font: {
-            fontSize: "16sp"
-        },
-        width: Ti.UI.FILL,
-        height: "96dp",
-        top: "11dp",
-        bottom: "11dp",
-        left: "11dp",
-        right: "11dp",
-        borderWidth: 1,
-        borderColor: "#CCCCCC",
-        id: "inputTel"
-    });
-    $.__views.addWrap.add($.__views.inputTel);
     $.__views.takePicture = Ti.UI.createButton({
         width: Ti.UI.FILL,
         top: "11dp",

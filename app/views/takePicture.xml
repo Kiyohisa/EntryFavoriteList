@@ -1,9 +1,6 @@
 <Alloy>
 	<Collection src="photo"/>
-	<Window id="takePicture" title="Take Picture"onClose="tabClose">
-		<RightNavButton platform="ios">
-			<Button title="takePic" onClick="takePicture" id="takeButton"></Button>
-		</RightNavButton>
+	<Window id="takePicture" title="Take Picture" onOpen="takePicture" tabBarHidden="true">
 		<ScrollView id="scroll" dataCollection="photo">
 			<Require type="view" src="photo"></Require>
 		</ScrollView>

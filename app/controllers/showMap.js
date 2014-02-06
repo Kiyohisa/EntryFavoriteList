@@ -1,10 +1,17 @@
 function report(evt) {
-	Ti.API.info("Annotation " + evt.title + " clicked, id: " +evt.annotation.myid);
+	Ti.API.info("Annotation " + evt.title + " clicked, path: " +evt.annotation.path);
 	
-	// if (evt.annotation && evt.clicksource == "rightButton") {
+	if (evt.annotation && evt.clicksource == "rightButton") {
 		// var win = app.ui.photo.createPhotoWindow(evt.annotation.photo.path);
 		// win.open();
-	// };
+	  var showImage = Alloy.createController("showImage").getView("imageView");
+	  if (Alloy.Globals.currentTab === undefined) {
+	    index = Alloy.createController("index");
+	    Alloy.Globals.currentTab = index.getView("showMapTab");
+	  }
+	  Alloy.Globals.path = evt.annotation.path;
+	　Alloy.Globals.currentTab.open(showImage);
+	};
 }
 
 function showMap(){
@@ -30,10 +37,10 @@ function showMap(){
 					,longitude:photo.get('longitude')
 					,pincolor:Titanium.Map.ANNOTATION_GREEN
 					,animate:true
-					,title: "test"
+					,title: photo.get('memo')
 					,leftView: Ti.UI.createImageView({image: photo.get('path'), width:32, height:32})
 					,rightButton: Ti.UI.iPhone.SystemButton.DISCLOSURE
-					//,photo: photo
+					,path: photo.get('path')
 				});
 				$.mapview.addAnnotation(createAnnotation);
 			};
@@ -46,10 +53,10 @@ function showMap(){
 					,longitude:event.photo.attributes.longitude
 					,pincolor:Titanium.Map.ANNOTATION_GREEN
 					,animate:true
-					,title: "test"
+					,title: event.photo.attributes.memo
 					,leftView: Ti.UI.createImageView({image: event.photo.attributes.path, width:32, height:32})
 					,rightButton: Ti.UI.iPhone.SystemButton.DISCLOSURE
-					//,photo: photo					
+					,path: event.photo.attributes.path			
 				});
 				$.mapview.addAnnotation(createAnnotation);
 	        });
@@ -65,3 +72,7 @@ function showMap(){
 	);
 };
 $.map.open();	
+
+$.map.addEventListener('close', function() {
+    $.destroy();
+});

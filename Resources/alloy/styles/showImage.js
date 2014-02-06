@@ -1,0 +1,1 @@
+module.exports = [{"isId":true,"priority":100000.0017,"key":"imageView","style":{backgroundColor:"#fff",barColor:"#000",translucent:true,navBarHidden:true,tabBarHidden:true,}},{"isId":true,"priority":100000.0018,"key":"showPict","style":{width:Ti.Platform.displayCaps.platformWidth,height:Ti.Platform.displayCaps.platformHeight,}}];

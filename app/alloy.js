@@ -9,3 +9,4 @@
 // object. For example:
 //
 Alloy.Collections.photo = Alloy.createCollection("photo");
+Alloy.Collections.favorite = Alloy.createCollection("favorite");

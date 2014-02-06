@@ -6,8 +6,6 @@ function takePicture(){
 	//Ti.Media.openPhotoGallery({
 	Ti.Media.showCamera({
 		success:function(evt){
-                var cropRect = evt.cropRect;
-                var image = evt.media;
                 if(evt.mediaType == Ti.Media.MEDIA_TYPE_PHOTO)
                 {
                     Ti.Geolocation.accuracy = Ti.Geolocation.ACCURACY_BEST;
@@ -17,20 +15,30 @@ function takePicture(){
 	 					var file = Ti.Filesystem.getFile(Ti.Filesystem.applicationDataDirectory
 	 						,String.format("%d-%d", now, Math.floor(Math.random() * 1000)));
 	 					file.write(evt.media);
+	 					// var favorites = Alloy.Collections.favorite.fetch({
+	 						// query: 'SELECT * FROM favorite'
+	 					// });
+	 					//var favorites = Alloy.Collections.favorite;
+	 					var favorites = Alloy.createCollection('favorite');
+	 					favorites.fetch();
+	 					// alert("favorites.length "+favorites.length);
+						var favorite = favorites.at(favorites.length-1);	 					
 	 					var savePhoto = {
 						    path: file.nativePath,
 						    latitude: e.coords.latitude,
-						    longitude: e.coords.longitude
+						    longitude: e.coords.longitude,
+						    memo: favorite.get('name')
 	 					};
 	 					var photo = Alloy.createModel("photo", savePhoto);
 	 					photo.save();
-	 					Alloy.Collections.photo.fetch();
+	 					// Alloy.Collections.photo.fetch();
                 		
                 		Ti.API.info({photo: photo});
+		                Ti.Media.hideCamera();
                 		
-                		// Ti.App.fireEvent('app:update', {photo: photo});
                 		Ti.App.fireEvent('app:update', {photo: photo});
-                		
+						$.takePicture.close();
+						          		
                 	}
                 	);
 
@@ -42,6 +50,8 @@ function takePicture(){
                 }
 		},
 		cancel:function(){
+                var win = Ti.UI.createWindow();
+				win.close();
 		},
 		error:function(error){
                 // create alert
@@ -57,14 +67,15 @@ function takePicture(){
                 }
                 // show alert
                 a.show();
+                var win = Ti.UI.createWindow();
+				win.close();
 		},
 		saveToPhotoGallery:true,
         allowEditing:true,
         mediaTypes:[Ti.Media.MEDIA_TYPE_VIDEO,Ti.Media.MEDIA_TYPE_PHOTO]
+
 	}
 	);
 }
-// $.takePicture = tabClose();
-// $.takePicture = takePicture;
 
 $.takePicture.open();

@@ -1,20 +1,29 @@
 exports.definition = {
 	config: {
 		columns: {
-		    "path": "text",
-		    "latitude": "text",
-		    "longitude": "text",
-		    "memo": "text",
-		    "favorite_id": "Integer"
+		    "name": "text",
+		    "address": "text",
+		    "tel": "text",
 		},
 		adapter: {
 			type: "sql",
-			collection_name: "photo"
+			collection_name: "favorite"
 		}
 	},
 	extendModel: function(Model) {
 		_.extend(Model.prototype, {
 			// extended functions and properties go here
+			validate: function (attrs) {
+				for(var key in attrs) {
+					var value = attrs[key];
+					if(key == "name") {
+						if(value.length <= 0){
+							return "No name!";
+						}
+					}
+					
+				}
+			}
 		});
 
 		return Model;

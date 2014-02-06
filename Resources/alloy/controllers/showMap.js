@@ -1,6 +1,15 @@
 function Controller() {
     function report(evt) {
-        Ti.API.info("Annotation " + evt.title + " clicked, id: " + evt.annotation.myid);
+        Ti.API.info("Annotation " + evt.title + " clicked, path: " + evt.annotation.path);
+        if (evt.annotation && "rightButton" == evt.clicksource) {
+            var showImage = Alloy.createController("showImage").getView("imageView");
+            if (void 0 === Alloy.Globals.currentTab) {
+                index = Alloy.createController("index");
+                Alloy.Globals.currentTab = index.getView("showMapTab");
+            }
+            Alloy.Globals.path = evt.annotation.path;
+            Alloy.Globals.currentTab.open(showImage);
+        }
     }
     function showMap() {
         Titanium.Geolocation.purpose = "サンプル";
@@ -20,13 +29,14 @@ function Controller() {
                     longitude: photo.get("longitude"),
                     pincolor: Titanium.Map.ANNOTATION_GREEN,
                     animate: true,
-                    title: "test",
+                    title: photo.get("memo"),
                     leftView: Ti.UI.createImageView({
                         image: photo.get("path"),
                         width: 32,
                         height: 32
                     }),
-                    rightButton: Ti.UI.iPhone.SystemButton.DISCLOSURE
+                    rightButton: Ti.UI.iPhone.SystemButton.DISCLOSURE,
+                    path: photo.get("path")
                 });
                 $.mapview.addAnnotation(createAnnotation);
             };
@@ -37,13 +47,14 @@ function Controller() {
                     longitude: event.photo.attributes.longitude,
                     pincolor: Titanium.Map.ANNOTATION_GREEN,
                     animate: true,
-                    title: "test",
+                    title: event.photo.attributes.memo,
                     leftView: Ti.UI.createImageView({
                         image: event.photo.attributes.path,
                         width: 32,
                         height: 32
                     }),
-                    rightButton: Ti.UI.iPhone.SystemButton.DISCLOSURE
+                    rightButton: Ti.UI.iPhone.SystemButton.DISCLOSURE,
+                    path: event.photo.attributes.path
                 });
                 $.mapview.addAnnotation(createAnnotation);
             });
@@ -69,9 +80,9 @@ function Controller() {
     });
     $.__views.map && $.addTopLevelView($.__views.map);
     showMap ? $.__views.map.addEventListener("open", showMap) : __defers["$.__views.map!open!showMap"] = true;
-    var __alloyId17 = [];
+    var __alloyId11 = [];
     $.__views.mapview = Ti.Map.createView({
-        annotations: __alloyId17,
+        annotations: __alloyId11,
         id: "mapview",
         ns: Ti.Map,
         userLocation: "true",
@@ -85,6 +96,9 @@ function Controller() {
     exports.destroy = function() {};
     _.extend($, $.__views);
     $.map.open();
+    $.map.addEventListener("close", function() {
+        $.destroy();
+    });
     __defers["$.__views.map!open!showMap"] && $.__views.map.addEventListener("open", showMap);
     __defers["$.__views.mapview!click!report"] && $.__views.mapview.addEventListener("click", report);
     _.extend($, exports);

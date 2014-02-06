@@ -1,17 +1,17 @@
 function Controller() {
-    function __alloyId10() {
-        __alloyId10.opts || {};
-        var models = __alloyId9.models;
+    function __alloyId8() {
+        __alloyId8.opts || {};
+        var models = __alloyId7.models;
         var len = models.length;
         var rows = [];
         for (var i = 0; len > i; i++) {
-            var __alloyId4 = models[i];
-            __alloyId4.__transform = {};
-            var __alloyId5 = Ti.UI.createTableViewRow({
-                _id: "undefined" != typeof __alloyId4.__transform["alloy_id"] ? __alloyId4.__transform["alloy_id"] : __alloyId4.get("alloy_id")
+            var __alloyId2 = models[i];
+            __alloyId2.__transform = {};
+            var __alloyId3 = Ti.UI.createTableViewRow({
+                _id: "undefined" != typeof __alloyId2.__transform["alloy_id"] ? __alloyId2.__transform["alloy_id"] : __alloyId2.get("alloy_id")
             });
-            rows.push(__alloyId5);
-            var __alloyId6 = Ti.UI.createView({
+            rows.push(__alloyId3);
+            var __alloyId4 = Ti.UI.createView({
                 width: Ti.UI.FILL,
                 height: Ti.UI.SIZE,
                 top: "6dp",
@@ -20,21 +20,21 @@ function Controller() {
                 left: "11dp",
                 layout: "horizontal"
             });
-            __alloyId5.add(__alloyId6);
-            var __alloyId7 = Ti.UI.createLabel({
+            __alloyId3.add(__alloyId4);
+            var __alloyId5 = Ti.UI.createLabel({
                 width: Ti.UI.FILL,
                 height: Ti.UI.SIZE,
                 textAlign: "left",
-                text: "undefined" != typeof __alloyId4.__transform["latitude"] ? __alloyId4.__transform["latitude"] : __alloyId4.get("latitude")
+                text: "undefined" != typeof __alloyId2.__transform["name"] ? __alloyId2.__transform["name"] : __alloyId2.get("name")
             });
-            __alloyId6.add(__alloyId7);
-            var __alloyId8 = Ti.UI.createLabel({
+            __alloyId4.add(__alloyId5);
+            var __alloyId6 = Ti.UI.createLabel({
                 width: Ti.UI.FILL,
                 height: Ti.UI.SIZE,
                 textAlign: "left",
-                text: "undefined" != typeof __alloyId4.__transform["longitude"] ? __alloyId4.__transform["longitude"] : __alloyId4.get("longitude")
+                text: "undefined" != typeof __alloyId2.__transform["address"] ? __alloyId2.__transform["address"] : __alloyId2.get("address")
             });
-            __alloyId6.add(__alloyId8);
+            __alloyId4.add(__alloyId6);
         }
         $.__views.favorites.setData(rows);
     }
@@ -54,10 +54,10 @@ function Controller() {
         id: "favorites"
     });
     $.__views.home.add($.__views.favorites);
-    var __alloyId9 = Alloy.Collections["photo"] || photo;
-    __alloyId9.on("fetch destroy change add remove reset", __alloyId10);
+    var __alloyId7 = Alloy.Collections["favorite"] || favorite;
+    __alloyId7.on("fetch destroy change add remove reset", __alloyId8);
     exports.destroy = function() {
-        __alloyId9.off("fetch destroy change add remove reset", __alloyId10);
+        __alloyId7.off("fetch destroy change add remove reset", __alloyId8);
     };
     _.extend($, $.__views);
     _.extend($, exports);

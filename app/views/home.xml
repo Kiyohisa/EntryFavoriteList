@@ -1,10 +1,15 @@
 <Alloy>
 	<Window title="Home">
-		<TableView id="favorites" dataCollection="photo">
+<!--		<TableView id="favorites" dataCollection="photo"> -->
+		<TableView id="favorites" dataCollection="favorite">
+			
 			<TableViewRow _id="{alloy_id}">
 	        <View id="rowWrap">
-	          <Label class="rowText" id="latitude" text="{latitude}" />
-	          <Label class="rowText" id="longitude" text="{longitude}" />	        	
+	          <!-- <Label class="rowText" id="latitude" text="{latitude}" />
+	          <Label class="rowText" id="longitude" text="{longitude}" /> -->
+	          <Label class="rowText" id="latitude" text="{name}" />
+	          <Label class="rowText" id="longitude" text="{address}" />
+	          	        	
 <!--	          <Label class="rowText" id="path" text="{path}" /> -->
 	        </View>
 		    </TableViewRow>
